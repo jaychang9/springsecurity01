@@ -35,10 +35,12 @@
         <h1 th:text="${msg.title}"></h1>
         <h2 sec:authentication="name"></h2>
         <p class="bg-primary" th:text="${msg.content}"></p>
-        <div sec:authorize="hasRole('admin')">
+        <!-- 检查是否有admin这个角色 -->
+        <div sec:authorize="hasRole('ROLE_admin')">
             <p class="bg-info" th:text="${msg.extraInfo}"></p>
         </div>
-        <div sec:authorize="hasRole('operater')">
+        <!-- 检查是否有operater这个角色 -->
+        <div sec:authorize="hasRole('ROLE_operater')">
             <p class="bg-info">无更多显示信息</p>
         </div>
         <form th:action="@{/logout}" method="post">
