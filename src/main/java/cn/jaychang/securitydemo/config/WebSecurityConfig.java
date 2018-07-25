@@ -1,10 +1,12 @@
 package cn.jaychang.securitydemo.config;
 
+import cn.jaychang.securitydemo.security.CustomLogoutSuccessHandler;
 import cn.jaychang.securitydemo.security.CustomUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
@@ -14,6 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  * @description TODO
  * @create 2018-07-24 18:05
  */
+@EnableWebSecurity
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
@@ -35,6 +38,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .tokenValiditySeconds(60 * 60 * 24 * 7)
                 // 设置cookie私钥
                 .key("zc-u-key")
-                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/login").permitAll();
+                .and().logout().logoutUrl("/logout").deleteCookies("JSESSIONID").logoutSuccessUrl("/login").logoutSuccessHandler(new CustomLogoutSuccessHandler()).permitAll();
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/static/**");
     }
 }

@@ -14,7 +14,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class WebMvcConfig extends WebMvcConfigurerAdapter{
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        // 直接可以用来做为映射的，这样就不用专门写一个Controller了
+        // 直接可以用来做为映射的，这样就不用专门写一个Controller了(对应templates/login.html)
         registry.addViewController("/login").setViewName("login");
+
+        // 自定义错误页面(对应templates/error.html)
+        registry.addViewController("/custom/error").setViewName("error");
     }
 }
