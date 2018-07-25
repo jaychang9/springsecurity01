@@ -1,5 +1,6 @@
 package cn.jaychang.securitydemo.entity;
 
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +18,7 @@ import java.util.List;
  * @description TODO
  * @create 2018-07-24 14:38
  */
+@ToString
 @Table(name = "t_sys_user")
 @Entity
 public class SysUser implements UserDetails,Serializable{
